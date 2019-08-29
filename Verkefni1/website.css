@@ -50,6 +50,12 @@ li {
     text-align: center;
 }
 
+a:link {
+    color: green; 
+    background-color: transparent; 
+    text-decoration: none;
+}
+
 a:visited { 
     color: DeepSkyBlue;
 }
