@@ -1,7 +1,7 @@
 # Vefhonnun
 Vefhönnun í tækniskólanum
 
-- [ ] Verkefni 1 komið
+- [X] Verkefni 1 komið
 - [ ] Verkefni 2 komið
 - [ ] Verkefni 3 komið
 - [ ] Verkefni 4 komið
