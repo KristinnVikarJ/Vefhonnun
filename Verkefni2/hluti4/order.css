@@ -25,21 +25,18 @@ footer p {
 .gulur {
 	background-color: yellow;
 	width: 100%;
-	text-align: center;
 	border: 1px black solid;
 	order: 1;
 }
 .raudur {
 	background-color: red; 
 	width: 100%;
-	text-align: center;
 	border: 1px black solid;
 	order: 2;
 }
 .graenn {
 	background-color: lime;
 	width: 100%;
-	text-align: center;
 	border: 1px black solid;
 	order: 3;
 }
@@ -47,7 +44,6 @@ footer p {
 	background-color: cyan; 
 	width: 100%;
 	border: 1px black solid;
-	text-align: center;
 	order: 4;
 }
 .box {
