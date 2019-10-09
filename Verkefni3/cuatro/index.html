@@ -7,9 +7,10 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body>
+            <img src="./Untitled.png" style = "width: 5%;"  id = "Image">
         <header>
             <h1>
-                Hrekkjavaka
+                <img src = "./netto.png" style = "width: 50%; height: 50%">
             </h1>
             <a href = "https://www.youtube.com/watch?v=vdVnnMOTe3Q">Myndband</a>
         </header>
@@ -29,12 +30,29 @@
                 </li>
             </ul>
         </nav>
+        <aside>
+            <a href = "./Untitled.png">A</a>
+            The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues.
+        </aside>
+        <script>
+            var a = 0;
+            var image = document.getElementById("Image");
+
+            function ButtonPress(){
+                setTimeout(function () {
+                    image.style.width = a + "%";
+                    a = a + 1;
+                    if(a <= 500){
+                        ButtonPress();
+                    }
+                }, 10)
+            }
+        </script>
         <main>
-                <img src="./gifs/Halloween_line_of_pumpkins.gif" class="center">
-                <img src="./gifs/candlglw.gif" style = "display: inline;">
-                <p style = "display: inline-block; width: 83%; text-align:justify;">Hrekkjavaka er hátíðisdagur haldin 31. október, ættaður frá keltum þar sem hann hét upphaflega Samhain (borið fram sánj á írsku). Þá voru færðar þakkir fyrir uppskeru sumarsinns og boðin koma vetursins. Hrekkjavaka nefnist á enskri tungu Halloween, sem er annar ritháttur fyrir Hallowe’en. Hallowe’en er svo stytting á nafninu All Hallows’ Evening eða All Hallows’ Eve sem er kvöldið 31. október, vakan fyrir allraheilagramessu. Kirkjan flutti hátíðina allraheilagramessu til fyrsta nóvember til að reyna að taka yfir eldri heiðnar hátíðir á borð við Samhain og veturnætur.</p>
-                <img src="./gifs/candlglw.gif" style = "display: inline;" align="right">
-                <img src="./gifs/HalloweenlightsBar.gif" class="center">
+            <button onclick="ButtonPress()"> abc </button>
+            Nettó byggir á öflugri liðsheild og leggur áherslu á að starfsmenn búi yfir góðri faglegri þekkingu, áræðni og sveigjanleika. Unnið er markvisst starf innan fyrirtækisins til að viðhalda þeim gildum.
+
+Verslanir Nettó eru staðsettar á 16 stöðum á landinu. Smelltu hér til að sækja um starf hjá Nettó
         </main>
         <footer>
             <ul>

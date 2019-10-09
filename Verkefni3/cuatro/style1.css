@@ -8,20 +8,18 @@ body{
     height: 100vh;
     display: grid;
     margin: 0 auto;
-    background-color: black;
-    grid-template-columns: 100%;
-    grid-template-rows: 15% 5% auto 5%;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 17% 5% auto 5%;
     grid-template-areas:
-        "header"
-        "nav"
-        "main"
-        "footer";
+        "header header"
+        "nav nav"
+        "aside main"
+        "footer footer";
 }
 
 header {
     grid-area: header;
     padding: 1em;
-    background-image: linear-gradient(rgb(255, 102, 0), black);
 }
 
 header a {
@@ -39,13 +37,13 @@ header h1 {
 }
 
 aside {
-    background-image: linear-gradient(0.125turn, #ff0000, #00ff0d);
+    background-image: linear-gradient(0.25turn, lightblue, white);
     grid-area: aside;
     padding: 0 1em;
 }
 
 main {
-    background-color: black;
+    background-image: linear-gradient(0.75turn, lightblue, white);
     grid-area: main;
     padding: 0 1em;
 }
@@ -55,13 +53,13 @@ main p {
 }
 
 footer {
-    background-image: linear-gradient(black, rgb(255, 102, 0));
+    background-image: linear-gradient(white, lightblue);
     grid-area: footer;
     text-align: center;
 }
 
 nav {
-    background-image: linear-gradient(rgb(255, 102, 0), black);
+    background-image: linear-gradient(lightblue, white);
     grid-area: nav;
     text-align: center;
 }
