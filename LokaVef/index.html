@@ -6,7 +6,9 @@
         <meta charset="utf-8">
 
         <link rel="stylesheet" href="./css/material.min.css">
+        <link rel="stylesheet" href="./css/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
         <script src = "./css/material.min.js"></script>
     </head>
 
@@ -17,7 +19,7 @@
                     <span class="mdl-layout-title">SCP: Secret Laboratory</span>
                     
                     <div class="mdl-layout-spacer"></div>
-                    
+
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
                         <a class="mdl-navigation__link" href="./index.html">Heimasíða</a>
                         <a class="mdl-navigation__link" href="">Link</a>
@@ -27,7 +29,7 @@
                 </div>
             </header>
             <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">Title</span>
+                <span class="mdl-layout-title">SCP: SL</span>
                 <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="./index.html">Heimasíða</a>
                 <a class="mdl-navigation__link" href="">Link</a>
@@ -37,9 +39,55 @@
             </div>
             <main class="mdl-layout__content">
                 <div class="page-content">
-                    SCP:Secret Laboratory er tölvuleikur
+                    <div class = "black uppadding downpadding"> 
+                        <h1>SCP: SECRET LABORATORY</h1>
+                    </div>
+                    <div class="parallax"></div>
+                    <div class="div1"></div>
+                    <h1 id = "playercount">0 Notendur</h1>
+                    <h1 id = "servercount">0 Þjónar uppi</h1>
+                    <h1 id = "playercapacity">0 Samtals Notenda Pláss</h1>
                 </div>
             </main>
         </div>
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            async function httpGet(theUrl)
+            {
+                
+
+                return xmlHttp.responseText;
+            }
+
+            async function main(){
+                while(true){
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open( "GET", "http://localhost:5000/players", true);
+                    xmlHttp.send( null );
+                    xmlHttp.onload = function(e){
+                        document.getElementById("playercount").textContent = xmlHttp.responseText + " Notendur";
+                    }
+
+                    var xmlHttp2 = new XMLHttpRequest();
+                    xmlHttp2.open( "GET", "http://localhost:5000/servers", true);
+                    xmlHttp2.send( null );
+                    xmlHttp2.onload = function(e){
+                        document.getElementById("servercount").textContent = xmlHttp2.responseText + " Þjónar uppi";
+                    }
+
+                    var xmlHttp3 = new XMLHttpRequest();
+                    xmlHttp3.open( "GET", "http://localhost:5000/capacity", true);
+                    xmlHttp3.send( null );
+                    xmlHttp3.onload = function(e){
+                        document.getElementById("playercapacity").textContent = xmlHttp3.responseText + " Samtals Notenda Pláss";
+                    }
+                    await sleep(2500);
+                }
+            }
+            setTimeout(main, 0);
+        </script>
     </body>
 </html>
