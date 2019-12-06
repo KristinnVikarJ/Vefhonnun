@@ -32,53 +32,45 @@ if not fetched or len(fetched) == 0:
         "CREATE TABLE PlayerHistory(Count INT, Servers INT, Capacity INT, Time DATETIME)")
 
 
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_mapping(
+    SECRET_KEY='dev',
+    DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+)
 
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_mapping(test_config)
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+@app.route('/api/lokavef/players')
+def players():
+    return str(TotalPlayers)
 
-    @app.route('/players')
-    def players():
-        return str(TotalPlayers)
 
-    @app.route('/servers')
-    def servers():
-        return str(TotalServers)
+@app.route('/api/lokavef/servers')
+def servers():
+    return str(TotalServers)
 
-    @app.route('/capacity')
-    def capacity():
-        return str(TotalCapacity)
 
-    @app.route('/history')
-    def history():
-        con2 = lite.connect('database.db')
-        amount = int(request.args.get('amount'))
-        command = "SELECT * FROM PlayerHistory ORDER BY Time DESC LIMIT " + \
-            str(amount)
-        curs = con2.cursor()
-        curs.execute(command)
-        rows = curs.fetchall()
-        items = []
-        for row in rows:
-            items.append(
-                {"players": row[0], "servers": row[1], "capacity": row[2], "time": row[3]})
-        return json.dumps(items)
+@app.route('/api/lokavef/capacity')
+def capacity():
+    return str(TotalCapacity)
 
-    CORS(app)
-    return app
+
+@app.route('/api/lokavef/history')
+def history():
+    con2 = lite.connect('database.db')
+    amount = int(request.args.get('amount'))
+    command = "SELECT * FROM PlayerHistory ORDER BY Time DESC LIMIT " + \
+        str(amount)
+    curs = con2.cursor()
+    curs.execute(command)
+    rows = curs.fetchall()
+    items = []
+    for row in rows:
+        items.append(
+            {"players": row[0], "servers": row[1], "capacity": row[2], "time": row[3]})
+    return json.dumps(items)
+
+
+CORS(app)
 
 
 def UpdateThread():
@@ -107,3 +99,6 @@ def UpdateThread():
 
 thread = Thread(target=UpdateThread)
 thread.start()
+
+if __name__ == "__main__":
+    app.run()

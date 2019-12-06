@@ -11,6 +11,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
         <script src = "./js/material.min.js"></script>
         <script src = "./js/Chart.js"></script>
+        <style>
+            .page-content, .mdl-layout__content{
+                background-image: url("./assets/header.jpg");
+            }
+        </style>
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -39,13 +44,15 @@
             </div>
             <main class="mdl-layout__content">
                 <div class="page-content">
-                    <div class = "black uppadding downpadding"> 
+                    <div class = "uppadding downpadding"> 
                         <h1>SCP: SECRET LABORATORY</h1>
                     </div>
                     <h1 id = "playercount">0 Notendur</h1>
                     <h1 id = "servercount">0 Þjónar uppi</h1>
                     <h1 id = "playercapacity" class = "downpadding">0 Samtals Notenda Pláss</h1>
-                    <canvas id="myChart" style="height: 350px; width: 60%; margin-left: auto; margin-right: auto;"></canvas>
+                    <div class = "center" style = "height: 60%; width: 90%;">
+                        <canvas id="myChart" style="height: 350px; width: 60%;" class = "center"></canvas>
+                    </div>
                 </div>
             </main>
         </div>
@@ -57,21 +64,21 @@
             async function main(){
                 while(true){
                     var xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open( "GET", "http://localhost:5000/players", true);
+                    xmlHttp.open( "GET", "http://piebot.xyz/api/lokavef/players", true);
                     xmlHttp.send( null );
                     xmlHttp.onload = function(e){
                         document.getElementById("playercount").textContent = xmlHttp.responseText + " Notendur";
                     }
 
                     var xmlHttp2 = new XMLHttpRequest();
-                    xmlHttp2.open( "GET", "http://localhost:5000/servers", true);
+                    xmlHttp2.open( "GET", "http://piebot.xyz/api/lokavef/servers", true);
                     xmlHttp2.send( null );
                     xmlHttp2.onload = function(e){
                         document.getElementById("servercount").textContent = xmlHttp2.responseText + " Þjónar uppi";
                     }
 
                     var xmlHttp3 = new XMLHttpRequest();
-                    xmlHttp3.open( "GET", "http://localhost:5000/capacity", true);
+                    xmlHttp3.open( "GET", "http://piebot.xyz/api/lokavef/capacity", true);
                     xmlHttp3.send( null );
                     xmlHttp3.onload = function(e){
                         document.getElementById("playercapacity").textContent = xmlHttp3.responseText + " Samtals Notenda Pláss";
@@ -82,36 +89,62 @@
             setTimeout(main, 0);
         </script>
         <script>
-            var xmlHttp3 = new XMLHttpRequest();
-            xmlHttp3.open( "GET", "http://localhost:5000/history?amount=100", true);
-            xmlHttp3.send( null );
-            xmlHttp3.onload = function(e){
-                var json = JSON.parse(xmlHttp3.responseText).reverse();
-                Data = [];
-                Times = [];
-                json.forEach((item) => {
-                    Data.push(item.players);
-                    Times.push(item.time);
-                });
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: Times,
-                        datasets:[{
-                            label: "Notendur",
-                            backgroundColor: '#337ab7',
-                            data: Data,
-                            fill:false,
-                            borderColor:"rgb(75, 192, 192)",
-                            lineTension:0.1
-                        }]
-                    },
-                    options: {
-                        responsive: false
-                    }
-                });
+            var chart;
+            function CreateOrUpdateChart(Data, Times){
+                if(chart == undefined){
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: Times,
+                            datasets:[{
+                                label: "Notendur",
+                                backgroundColor: '#337ab7',
+                                data: Data,
+                                fill:false,
+                                borderColor:"rgb(75, 192, 192)",
+                                lineTension:0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        }
+                    });
+                }else{
+                    console.log(Data.length);
+                    chart.data.datasets.pop();
+                    chart.data.datasets.push({
+                        label: "Notendur",
+                        backgroundColor: '#337ab7',
+                        data: Data,
+                        fill:false,
+                        borderColor:"rgb(75, 192, 192)",
+                        lineTension:0.1
+                    });
+                    chart.update();
+                }
             }
+
+            async function main(){
+                while(true){
+                    var xmlHttp3 = new XMLHttpRequest();
+                    xmlHttp3.open( "GET", "http://piebot.xyz/api/lokavef/history?amount=100", true);
+                    xmlHttp3.send( null );
+                    xmlHttp3.onload = function(e){
+                        var json = JSON.parse(xmlHttp3.responseText).reverse();
+                        Data = [];
+                        Times = [];
+                        json.forEach((item) => {
+                            Data.push(item.players);
+                            Times.push(item.time);
+                        });
+                        CreateOrUpdateChart(Data, Times);
+                    }
+                    await sleep(10000);
+                }
+            }
+            setTimeout(main, 0);
         </script>
     </body>
 </html>

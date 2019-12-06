@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
 }
-  
+
 .page-content, .mdl-layout__content {
     -webkit-overflow: overlay;
     overflow: auto;
@@ -16,16 +16,13 @@ h1 {
     text-align: center;
 }
 
-.div1 {
-    background: grey;
-    margin-top: 200px;
-    margin-bottom: 20px;
-    height: 20px;
-
-}
-
 h1, h2, h3, p {
     color: white;
+}
+
+.center {
+    margin-left: auto; 
+    margin-right: auto;
 }
 
 .black {
