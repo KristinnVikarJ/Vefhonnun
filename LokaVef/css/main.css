@@ -10,13 +10,17 @@
     background-color: black;
 }
 
+.thin {
+    font-weight: 100;
+}
+
 h1 {
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, h4, h5, h6, p {
     color: white;
 }
 
@@ -37,10 +41,29 @@ h1, h2, h3, p {
     padding-top: 2em;
 }
 
+.downpaddingl {
+    padding-bottom: 1em;
+}
+
+.uppaddingl {
+    padding-top: 1em;
+}
+
 .parallax {
     background-image: url("../assets/header.jpg");
   
     height: 500px;
+  
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+  
+.parallax2 {
+    background-image: url("../assets/header.jpg");
+  
+    height: 250px;
   
     background-attachment: fixed;
     background-position: center;

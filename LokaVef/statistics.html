@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./css/material.min.css">
         <link rel="stylesheet" href="./css/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,400&display=swap" rel="stylesheet">
         <script src = "./js/material.min.js"></script>
         <script src = "./js/Chart.js"></script>
         <style>
@@ -117,16 +117,7 @@
                         }
                     });
                 }else{
-                    console.log(Data.length);
-                    chart.data.datasets.pop();
-                    chart.data.datasets.push({
-                        label: "Notendur",
-                        backgroundColor: '#337ab7',
-                        data: Data,
-                        fill:false,
-                        borderColor:"rgb(75, 192, 192)",
-                        lineTension:0.1
-                    });
+                    chart.data.datasets[0].data = Data;
                     chart.update();
                 }
             }
